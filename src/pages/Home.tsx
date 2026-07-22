@@ -1,0 +1,6 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { createRoom } from '../services/rooms';
+import { validateRoomSettings } from '../utils/sanitize';
+export default function Home(){ const {user,loginGuest,loginGoogle}=useAuth(); const nav=useNavigate(); const [gridSize,setGridSize]=useState<3|5>(5); async function start(){ const uid=user?.uid ?? (await loginGuest()).user.uid; if(!validateRoomSettings({gridSize,maxPlayers:12})) return; const id=await createRoom(uid,{gridSize,winPattern:'line',maxPlayers:12,allowFreeSpace:true}); nav(`/room/${id}`)} return <main className="mx-auto max-w-3xl p-8 text-center"><h1 className="text-6xl font-black">BingoVerse</h1><p className="my-6">Realtime multiplayer bingo for friends, classes, and communities.</p><select className="text-slate-950" value={gridSize} onChange={e=>setGridSize(Number(e.target.value) as 3|5)}><option value={5}>5 x 5</option><option value={3}>3 x 3</option></select><div className="mt-6 space-x-3"><button className="rounded bg-indigo-500 px-5 py-3" onClick={start}>Create Room</button><button className="rounded bg-white/10 px-5 py-3" onClick={loginGoogle}>Sign in</button></div></main>}

@@ -1,0 +1,4 @@
+import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
+type Toast={id:number;text:string}; const ToastContext=createContext<{push:(text:string)=>void}|null>(null);
+export function ToastProvider({children}:{children:ReactNode}){const [toasts,setToasts]=useState<Toast[]>([]); const push=(text:string)=>{const id=Date.now(); setToasts(t=>[...t,{id,text}]); setTimeout(()=>setToasts(t=>t.filter(x=>x.id!==id)),3000)}; const value=useMemo(()=>({push}),[]); return <ToastContext.Provider value={value}>{children}<div className="fixed bottom-4 right-4 space-y-2">{toasts.map(t=><div key={t.id} className="rounded bg-indigo-600 px-4 py-2 text-white shadow">{t.text}</div>)}</div></ToastContext.Provider>}
+export const useToast=()=>{const v=useContext(ToastContext); if(!v) throw new Error('useToast must be used within ToastProvider'); return v};

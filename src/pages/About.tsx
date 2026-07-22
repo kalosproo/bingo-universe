@@ -1,0 +1,1 @@
+export default function About(){return <main className="p-8"><h1 className="text-4xl font-black">About BingoVerse</h1><p>Open a room, call numbers, chat safely, and celebrate winners in realtime.</p></main>}

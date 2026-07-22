@@ -1,0 +1,3 @@
+import { motion } from 'framer-motion';
+import type { BoardCell } from '../types';
+export function BingoBoard({cells,size,onToggle}:{cells:BoardCell[];size:number;onToggle?:(id:string)=>void}){return <div aria-label="bingo board" className="grid gap-2" style={{gridTemplateColumns:`repeat(${size}, minmax(0, 1fr))`}}>{cells.map(c=><motion.button whileTap={{scale:.94}} key={c.id} onClick={()=>onToggle?.(c.id)} className={`aspect-square rounded-xl border text-lg font-bold ${c.marked?'bg-emerald-400 text-slate-950':'bg-white/10 text-white'}`} aria-pressed={c.marked}>{c.value}</motion.button>)}</div>}
