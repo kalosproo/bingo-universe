@@ -7,7 +7,7 @@ BingoVerse is a React 19 + Vite + TypeScript realtime bingo app using Tailwind C
 ```bash
 npm install
 cp .env.example .env
-# Fill in Firebase web credentials
+# Firebase web credentials for bingoverse-beb9e are prefilled; adjust .env if you use another project
 npm run dev
 ```
 
